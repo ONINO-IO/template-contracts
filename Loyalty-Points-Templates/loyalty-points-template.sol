@@ -1,62 +1,89 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.18;
 
 /**
  * @title LoyaltyPoints
- * This contract manages loyalty points for customers in a rewards system.
+ * @dev Manages loyalty points for customers in a rewards system.
  */
 contract LoyaltyPoints {
-    // Define the owner of the contract
+    /// @notice Owner of the contract
     address public owner;
 
-    // Define a struct to hold user details and their loyalty points
+    /// @notice Struct to hold user details and their loyalty points
     struct User {
         uint256 points;
         bool isRegistered;
     }
 
-    // State variable to keep track of users and their points
+    /// @notice Mapping to keep track of users and their points
     mapping(address => User) public users;
 
-    // Event to be emitted when points are awarded or redeemed
+    /// @notice Event emitted when points are awarded
     event PointsAwarded(address indexed user, uint256 points);
+
+    /// @notice Event emitted when points are redeemed
     event PointsRedeemed(address indexed user, uint256 points);
 
-    // Modifier to check if the caller is the owner
+    /// @dev Modifier to check if the caller is the owner
     modifier onlyOwner() {
         require(msg.sender == owner, "Only the owner can perform this action.");
         _;
     }
 
-    // Constructor to set the contract deployer as the owner
+    /**
+     * @dev Sets the deployer as the initial owner of the contract.
+     */
     constructor() {
         owner = msg.sender;
     }
 
-    // Function to register a new user
-    function registerUser(address userAddress) public onlyOwner {
+    /**
+     * @notice Registers a new user.
+     * @param userAddress The address of the user to register.
+     */
+    function registerUser(address userAddress) external onlyOwner {
         require(!users[userAddress].isRegistered, "User already registered.");
         users[userAddress].isRegistered = true;
     }
 
-    // Function to award points to a user
-    function awardPoints(address userAddress, uint256 points) public onlyOwner {
+    /**
+     * @notice Awards points to a registered user.
+     * @param userAddress The address of the user to award points to.
+     * @param points The number of points to award.
+     */
+    function awardPoints(address userAddress, uint256 points) external onlyOwner {
         require(users[userAddress].isRegistered, "User not registered.");
         users[userAddress].points += points;
         emit PointsAwarded(userAddress, points);
     }
 
-    // Function for a user to redeem their points
-    function redeemPoints(uint256 points) public {
+    /**
+     * @notice Redeems points for the caller.
+     * @param points The number of points to redeem.
+     */
+    function redeemPoints(uint256 points) external {
         require(users[msg.sender].isRegistered, "User not registered.");
         require(users[msg.sender].points >= points, "Insufficient points.");
         users[msg.sender].points -= points;
         emit PointsRedeemed(msg.sender, points);
     }
 
-    // Function to check the points balance of a user
-    function checkPoints(address userAddress) public view returns (uint256) {
+    /**
+     * @notice Checks the points balance of a user.
+     * @param userAddress The address of the user to check.
+     * @return The number of points the user has.
+     */
+    function checkPoints(address userAddress) external view returns (uint256) {
         require(users[userAddress].isRegistered, "User not registered.");
         return users[userAddress].points;
+    }
+
+    /**
+     * @notice Transfers ownership of the contract to a new address.
+     * @param newOwner The address of the new owner.
+     */
+    function transferOwnership(address newOwner) external onlyOwner {
+        require(newOwner != address(0), "New owner cannot be the zero address.");
+        owner = newOwner;
     }
 }
