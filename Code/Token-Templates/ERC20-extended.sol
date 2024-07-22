@@ -2439,9 +2439,9 @@ pragma solidity ^0.8.20;
 
 contract MyToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ERC20Permit {
     constructor(address initialOwner)
-        ERC20("MyToken", "MTK")
+        ERC20("{{TOKEN_NAME}}", "{{TOKEN_SYMBOL}}") 
         Ownable(initialOwner)
-        ERC20Permit("MyToken")
+        ERC20Permit("{{TOKEN_NAME}}")
     {}
 
     function pause() public onlyOwner {

@@ -1498,5 +1498,5 @@ pragma solidity ^0.8.20;
 
 
 contract MyToken is ERC721 {
-    constructor() ERC721("MyToken", "MTK") {}
+    constructor() ERC721("{{NFT_Name}}", "{{NFT_SYMBOL}}") {}
 }

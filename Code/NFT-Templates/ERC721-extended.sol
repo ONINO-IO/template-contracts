@@ -2000,7 +2000,7 @@ contract MyToken is ERC721, ERC721Enumerable, ERC721Pausable, Ownable, ERC721Bur
     uint256 private _nextTokenId;
 
     constructor(address initialOwner)
-        ERC721("MyToken", "MTK")
+        ERC721("{{NFT_Name}}", "{{NFT_SYMBOL}}")
         Ownable(initialOwner)
     {}
 

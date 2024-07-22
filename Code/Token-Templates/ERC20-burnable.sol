@@ -669,5 +669,5 @@ pragma solidity ^0.8.20;
 
 
 contract MyToken is ERC20, ERC20Burnable {
-    constructor() ERC20("MyToken", "MTK") {}
+    constructor() ERC20("{{TOKEN_NAME}}", "{{TOKEN_SYMBOL}}") {}
 }
