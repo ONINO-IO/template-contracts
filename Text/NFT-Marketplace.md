@@ -1,0 +1,8 @@
+Short Description
+The NFTMarketplace smart contract facilitates the buying and selling of NFTs, implementing a secure and efficient marketplace with features for listing, purchasing, and managing NFT sales. The contract also includes a listing fee mechanism and protections against reentrancy attacks.
+
+Use Cases
+This smart contract is ideal for developers and businesses looking to create a decentralized NFT marketplace. It provides a platform where users can list their NFTs for sale, set prices, and manage their listings securely. Buyers can purchase listed NFTs, ensuring a seamless transaction process. The contract is suitable for any use case where NFTs need to be traded in a trustless and decentralized manner, such as digital art marketplaces, collectible platforms, and virtual real estate markets.
+
+Functionality
+The contract allows users to list their NFTs for sale by specifying the token address, token ID, and price. Listings are managed by unique IDs, and each listing is associated with a seller and its active status. Buyers can purchase NFTs by sending the required Ether, which transfers the NFT to the buyer and the payment to the seller. Sellers can update the price of their listings or cancel them if needed. The owner of the contract can set the listing fee and withdraw Ether from the contract balance. The contract ensures security with reentrancy guards and handles direct Ether transfers to the contract.
